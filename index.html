@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema Full Stack - Lorenzo</title>
+    <style>
+        body { font-family: sans-serif; background-color: #222; color: #fff; text-align: center; padding: 50px; }
+        .container { max-width: 500px; margin: auto; background: #333; padding: 20px; border-radius: 12px; }
+        input { padding: 10px; border-radius: 5px; border: none; width: 60%; }
+        button { padding: 10px; border-radius: 5px; border: none; background: #4CAF50; color: white; cursor: pointer; font-weight: bold; }
+        ul { list-style-type: none; padding: 0; margin-top: 20px; }
+        li { background: #444; margin: 10px 0; padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border-left: 5px solid #4CAF50; }
+        .btn-delete { background: #ff4444; margin-left: 5px; }
+        .btn-edit { background: #ff9800; margin-left: 10px; }
+    </style>
+</head>
+<body>
+
+    <h1>🚀 Gestão de Usuários</h1>
+    <div class="container">
+        <input type="text" id="nome-usuario" placeholder="Nome do usuário...">
+        <button onclick="cadastrar()">Salvar</button>
+        <ul id="lista-usuarios"></ul>
+    </div>
+
+    <script>
+        const lista = document.getElementById('lista-usuarios');
+        const input = document.getElementById('nome-usuario');
+
+        function buscarUsuarios() {
+            fetch('usuarios').then(res => res.json()).then(data => {
+                lista.innerHTML = '';
+                data.sort((a, b) => a.id - b.id).forEach(u => {
+                    const item = document.createElement('li');
+                    item.innerHTML = `
+                        <span>#${u.id} - ${u.nome}</span>
+                        <div>
+                            <button class="btn-edit" onclick="editar(${u.id}, '${u.nome}')">✏️</button>
+                            <button class="btn-delete" onclick="excluir(${u.id})">🗑️</button>
+                        </div>
+                    `;
+                    lista.appendChild(item);
+                });
+            });
+        }
+
+        function cadastrar() {
+            const nome = input.value;
+            if (!nome) return;
+            fetch('usuarios', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nome })
+            }).then(() => { input.value = ''; buscarUsuarios(); });
+        }
+
+        function excluir(id) {
+            if (confirm("Deseja mesmo excluir?")) {
+                fetch(`usuarios/${id}`, { method: 'DELETE' }).then(() => buscarUsuarios());
+            }
+        }
+
+        function editar(id, nomeAntigo) {
+            const novoNome = prompt("Editar nome:", nomeAntigo);
+            if (novoNome && novoNome !== nomeAntigo) {
+                fetch(`usuarios/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nome: novoNome })
+                }).then(() => buscarUsuarios());
+            }
+        }
+
+        buscarUsuarios();
+    </script>
+</body>
+</html>
