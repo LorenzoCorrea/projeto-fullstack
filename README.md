@@ -40,8 +40,6 @@ Para este projeto, utilizei uma arquitetura robusta focada em performance e sepa
 ![Git](https://img.shields.io/badge/git-%23F05032.svg?style=for-the-badge&logo=git&logoColor=white)
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 
-📫 **Vamos nos conectar?**
-[Link do seu LinkedIn aqui] | [Seu E-mail aqui]
 ---
 Imagem
 
