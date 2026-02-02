@@ -42,3 +42,9 @@ Para este projeto, utilizei uma arquitetura robusta focada em performance e sepa
 
 📫 **Vamos nos conectar?**
 [Link do seu LinkedIn aqui] | [Seu E-mail aqui]
+---
+Imagem
+
+<img width="1919" height="886" alt="Screenshot_8" src="https://github.com/user-attachments/assets/e6a6da6c-6c28-4e61-b757-1ed02a8480b8" />
+
+
